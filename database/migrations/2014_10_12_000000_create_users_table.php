@@ -26,7 +26,7 @@ return new class extends Migration
                 $table->boolean('email_auth')->default(0)->comment('Email auth 1 for enable, 0 for disable');
                 $table->string('secret_key', 64)->nullable();
                 $table->string('phone');
-                $table->tinyInteger('user_type')->nullable();
+                $table->tinyInteger('user_type')->nullable()->comment('0=>student, 1=>teacher, 2=>parent');
                 $table->string('last_login_date');
                 $table->string('last_login_ip');
                 $table->timestamp('email_verified_at')->nullable();
