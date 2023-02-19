@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('teachers')) {
-            Schema::create('teachers', function (Blueprint $table) {
-                $table->engine = "InnoDB";
+        if (!Schema::hasTable('attendances')) {
+            Schema::create('attendances', function (Blueprint $table) {
                 $table->id();
+                $table->unsignedBigInteger('user_id')->comment('FK:user_id(id)');
+                $table->string('remark')->nullable();
+                $table->boolean('status');
+                $table->index('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
                 $table->timestamps();
             });
         }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('attendances');
     }
 };

@@ -17,7 +17,8 @@ return new class extends Migration
             Schema::create('courses', function (Blueprint $table) {
                 $table->engine = "InnoDB";
                 $table->id();
-                $table->string('name');
+                $table->string('name',100);
+                $table->string('description',100);
                 $table->timestamps();
             });
         }

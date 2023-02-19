@@ -17,10 +17,10 @@ return new class extends Migration
             Schema::create('parents', function (Blueprint $table) {
                 $table->engine = "InnoDB";
                 $table->id();
-                $table->string('p_name')->nullable();
-                $table->string('p_email')->nullable();
-                $table->string('p_password')->nullable();
-                $table->date('p_dob')->nullable();
+                $table->string('f_name')->nullable();
+                $table->string('m_name')->nullable();
+                $table->string('phone')->nullable();
+                $table->string('email')->unique()->nullable();
                 $table->timestamps();
             });
         }

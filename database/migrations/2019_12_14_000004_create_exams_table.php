@@ -18,9 +18,11 @@ return new class extends Migration
                 $table->engine = "InnoDB";
                 $table->id();
                 $table->unsignedBigInteger('exam_type_id')->nullable()->comment('FK:exam_type_id(id)');
+                $table->string('name',100);
+                $table->dateTime('start_time')->nullable();
+                $table->dateTime('end_time')->nullable();
                 $table->index('exam_type_id');
                 $table->foreign('exam_type_id')->references('id')->on('exam_types')->onDelete('cascade');
-
                 $table->timestamps();
             });
         }
