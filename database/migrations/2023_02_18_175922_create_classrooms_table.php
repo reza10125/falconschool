@@ -18,8 +18,11 @@ return new class extends Migration
                 $table->engine = "InnoDB";
                 $table->id();
                 $table->unsignedBigInteger('teacher_id')->nullable();
+                $table->string('section')->nullable();
+                $table->string('remark')->nullable();
+                $table->boolean('status');
                 $table->index('teacher_id');
-                $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+                $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
                 
                 $table->timestamps();
             });
