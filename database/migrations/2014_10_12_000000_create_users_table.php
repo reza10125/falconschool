@@ -25,7 +25,7 @@ return new class extends Migration
                 $table->boolean('g_auth')->default(0)->comment('Google 2 step 1 for enable, 0 for disable');
                 $table->boolean('email_auth')->default(0)->comment('Email auth 1 for enable, 0 for disable');
                 $table->string('secret_key', 64)->nullable();
-                $table->string('phone');
+                $table->string('phone')->nullable();
                 $table->tinyInteger('user_type')->nullable()->comment('0=>student, 1=>teacher, 2=>parent, 3=> peon, 4=> clark, 5=> security');
                 $table->date('last_login_date')->nullable();
                 $table->string('last_login_ip')->nullable();
