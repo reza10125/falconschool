@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Admin\Auth\RegisterController;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,20 +25,26 @@ Route::get('/', function () {
 //   Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth:admin');
 // });
 
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin'], 'prefix' => '/admin'], function () {
-  Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+// Route::group(['namespace' => 'Admin', 'middleware' => ['auth:user'], 'prefix' => '/admin'], function () {
+//   Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+// });
+// Route::group(['namespace' => 'Admin', 'middleware' => ['auth:user'], 'prefix' => '/admin'], function () {
+//   Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+// });
+
+Route::middleware(['auth:user'])->group(function () {
+  Route::get('/user/dashboard', [AdminController::class, 'index'])->name('user.dashboard');
 });
 
 Route::namespace('Auth')->group(function () {
-
   //Login Routes
-  Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('login');
-  Route::post('/admin/login', [LoginController::class, 'login'])->name('login');
+  Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
+  Route::post('/user/login', [LoginController::class, 'userLogin'])->name('user.login');
   Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
   // Register Routes
-  Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-  Route::post('/register', [RegisterController::class, 'register'])->name('register');
+  Route::get('/user/register', [RegisterController::class, 'showRegisterForm'])->name('user.register');
+  Route::post('/user/register', [RegisterController::class, 'register'])->name('user.register');
 
   //Forgot Password Routes
   Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -47,7 +53,8 @@ Route::namespace('Auth')->group(function () {
   //Reset Password Routes
   Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
   Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.update');
-});
-// \app\Http\Middleware\RedirectIfAuthenticated.php
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+  Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+
+});
+Route::get('/home', [AdminController::class, 'index'])->name('home');

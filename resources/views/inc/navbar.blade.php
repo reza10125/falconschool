@@ -11,13 +11,13 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
-                @if(Auth::guard('admin')->check())
+                @if(Auth::guard('user')->check())
                 <li class="nav-item dropdown">
                     <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::guard('admin')->user()->name }} (ADMIN) <span class="caret"></span>
+                        {{ Auth::guard('user')->user()->name }} (Student) <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
-                        <a href="{{route('admin.home')}}" class="dropdown-item">Dashboard</a>
+                        <a href="{{route('user.dashboard')}}" class="dropdown-item">Dashboard</a>
                         <a class="dropdown-item" href="#" onclick="event.preventDefault();document.querySelector('#admin-logout-form').submit();">
                             Logout
                         </a>
@@ -28,10 +28,10 @@
                 </li>
                 @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    <a class="nav-link" href="{{ route('user.login') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    <a class="nav-link" href="{{ route('user.register') }}">Register</a>
                 </li>
                 @endif
             </ul>
